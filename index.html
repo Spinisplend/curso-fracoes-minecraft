@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Curso de Frações no Minecraft • Titio Spini</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Aprenda frações na prática com o jogo Minecraft. 12 aulas curtas, práticas e eficientes para todas as idades com Titio Spini.">
+  <meta name="author" content="Titio Spini">
+
+  <!-- Google Fonts: 'Press Start 2P' (Minecraft 8-bit) & 'Plus Jakarta Sans' -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* ==========================================================================
+       ESTILO TELA CHEIA (FULL-WIDTH) & FUNDO PRETO
+       Paleta Estrita:
+       - Fundo Base: #000000 (Preto Puro Contínuo)
+       - Botões de Ação Principal e Números em Destaque: #C90101 (Brick Ember)
+       - Efeitos de Hover, Iluminação Ambiente e Pontos de Energia: #EB9C00 (Golden Orange)
+       - Textos Principais: #FFFBFE (Snow)
+       - Textos Secundários e Divisores: #7A7D7D (Grey)
+       - Superfícies de Contraste: #565254 (Charcoal)
+       ========================================================================== */
+    :root {
+      --bg-black: #000000;
+      --charcoal: #565254;
+      --charcoal-surface: #141314;
+      --snow: #FFFBFE;
+      --grey: #7A7D7D;
+      --golden-orange: #EB9C00;
+      --golden-glow: rgba(235, 156, 0, 0.45);
+      --brick-ember: #C90101;
+      --ember-glow: rgba(201, 1, 1, 0.45);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: clip;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    body {
+      background-color: var(--bg-black);
+      color: var(--snow);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: clip;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .font-minecraft {
+      font-family: 'Press Start 2P', monospace;
+      line-height: 1.5;
+    }
+
+    /* Iluminação Ambiente / Spotlights Contidas (Sem transbordamento) */
+    .spotlight-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+      contain: strict;
+    }
+
+    .spotlight-top {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 800px;
+      height: 400px;
+      background: radial-gradient(ellipse at 50% 15%, rgba(235, 156, 0, 0.2) 0%, rgba(201, 1, 1, 0.06) 40%, transparent 70%);
+      filter: blur(80px);
+    }
+
+    .spotlight-mid {
+      position: absolute;
+      top: 40%;
+      right: 0;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(235, 156, 0, 0.12) 0%, transparent 65%);
+      filter: blur(90px);
+    }
+
+    .spotlight-bottom {
+      position: absolute;
+      bottom: 5%;
+      left: 0;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(235, 156, 0, 0.14) 0%, transparent 65%);
+      filter: blur(90px);
+    }
+
+    /* Botão de Ação Principal: #C90101 -> Hover: #EB9C00 */
+    .btn-main-cta {
+      background-color: var(--brick-ember);
+      color: #ffffff;
+      font-weight: 700;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 20px var(--ember-glow);
+      text-decoration: none;
+    }
+
+    .btn-main-cta:hover {
+      background-color: var(--golden-orange);
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px var(--golden-glow);
+    }
+
+    /* Botão Secundário: Hover em Golden Orange (#EB9C00) */
+    .btn-outline-cta {
+      background-color: transparent;
+      color: var(--snow);
+      border: 1px solid var(--grey);
+      font-weight: 600;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-outline-cta:hover {
+      background-color: rgba(235, 156, 0, 0.12);
+      border-color: var(--golden-orange);
+      color: var(--golden-orange);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 18px rgba(235, 156, 0, 0.2);
+    }
+
+    /* Pontos de Energia / Nodes em Golden Orange (#EB9C00) com Pulso */
+    .energy-node {
+      background-color: var(--golden-orange);
+      box-shadow: 0 0 10px var(--golden-orange);
+    }
+
+    /* Botões Sociais */
+    .social-tag-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 0.85rem;
+      border-radius: 9999px;
+      background: #141314;
+      border: 1px solid rgba(122, 125, 125, 0.3);
+      color: var(--snow);
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: all 0.25s ease;
+      text-decoration: none;
+    }
+
+    .social-tag-btn:hover {
+      border-color: var(--golden-orange);
+      color: #ffffff;
+      background-color: var(--golden-orange);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px var(--golden-glow);
+    }
+  </style>
+</head>
+
+<body class="relative min-h-screen w-full">
+
+  <!-- LUZES DE FUNDO AMBIENTES (ISOLADAS DO LAYOUT) -->
+  <div class="spotlight-wrapper" aria-hidden="true">
+    <div class="spotlight-top"></div>
+    <div class="spotlight-mid"></div>
+    <div class="spotlight-bottom"></div>
+  </div>
+
+  <!-- BARRA SUPERIOR DE NAVEGAÇÃO CONTÍNUA (FULL-WIDTH) -->
+  <header class="w-full border-b border-[#7A7D7D]/20 bg-black/90 backdrop-blur-md sticky top-0 z-50">
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-2">
+      
+      <!-- Marca -->
+      <a href="#" class="flex items-center gap-2 group flex-shrink-0">
+        <div class="w-7 h-7 sm:w-9 sm:h-9 rounded bg-[#C90101] flex items-center justify-center text-white font-extrabold text-xs sm:text-sm shadow-md group-hover:bg-[#EB9C00] transition-colors">
+          ½
+        </div>
+        <div class="leading-tight">
+          <span class="font-minecraft text-[10px] sm:text-xs text-[#FFFBFE] tracking-tight block">
+            FRAÇÕES<span class="text-[#C90101]">CRAFT</span>
+          </span>
+          <span class="text-[8px] sm:text-[10px] text-[#7A7D7D] font-mono block">
+            Titio Spini
+          </span>
+        </div>
+      </a>
+
+      <!-- Menu Horizontal (Tablet e Desktop) -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-[#FFFBFE]/80">
+        <a href="#metodo" class="hover:text-[#EB9C00] transition-colors">Como Funciona</a>
+        <a href="#todas-as-idades" class="hover:text-[#EB9C00] transition-colors">Para Quem É</a>
+        <a href="#criador" class="hover:text-[#EB9C00] transition-colors">Sobre o Professor</a>
+      </nav>
+
+      <!-- Botão Rápido de Acesso (Sem Preço aqui: Preço Apenas no Final) -->
+      <div class="flex items-center flex-shrink-0">
+        <a href="#inscricao" class="btn-main-cta px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-lg text-xs tracking-wider uppercase inline-flex items-center gap-1.5 sm:gap-2 font-bold whitespace-nowrap">
+          <span>Acessar</span>
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       HERO SECTION EM TELA CHEIA (CINEMATOGRÁFICA)
+       ========================================================================== -->
+  <section class="w-full relative pt-6 sm:pt-10 pb-16 sm:pb-20 border-b border-[#7A7D7D]/15 overflow-hidden">
+    
+    <!-- Banner Panorâmico com o Titio Spini e Fórmulas Matemáticas Integrado ao Preto -->
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 mb-8 sm:mb-12">
+      <div class="relative w-full aspect-[16/10] sm:aspect-[21/9] lg:aspect-[2.4/1] overflow-hidden rounded-xl border border-[#7A7D7D]/30 shadow-2xl group">
+        <img 
+          src="assets/banner_titio_spini.jpg" 
+          alt="Curso de Frações do Titio Spini com fórmulas matemáticas e skin do Minecraft"
+          class="w-full h-full object-cover object-center transform group-hover:scale-[1.01] transition-transform duration-700"
+        >
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/20 pointer-events-none"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/60 pointer-events-none"></div>
+      </div>
+    </div>
+
+    <!-- Conteúdo Textual do Hero em Linhas Abertas -->
+    <div class="w-full max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-5 sm:space-y-6 relative z-10">
+      
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1c1a1b] border border-[#7A7D7D]/30 text-[10px] sm:text-xs font-mono text-[#FFFBFE] uppercase tracking-wider">
+        <span class="w-2 h-2 rounded-full energy-node animate-pulse"></span>
+        <span>Curso Completo e Específico de Frações</span>
+      </div>
+
+      <h1 class="text-2xl sm:text-4xl lg:text-6xl font-extrabold text-[#FFFBFE] tracking-tight leading-[1.2] max-w-4xl mx-auto">
+        Domine as <span class="text-[#C90101]">Frações</span> de Forma Visual, Prática e Sem Traumas no Minecraft.
+      </h1>
+
+      <p class="text-sm sm:text-lg text-[#7A7D7D] max-w-2xl mx-auto leading-relaxed font-normal">
+        Esqueça as regras decoradas sem sentido. Aqui, cada bloco do Minecraft é uma fração viva que você divide, soma e encaixa. Uma didática acolhedora criada para que <strong class="text-[#FFFBFE]">qualquer idade</strong> aprenda de verdade.
+      </p>
+
+      <!-- Ações do Hero (Sem Preço aqui: Preço Apenas no Final) -->
+      <div class="pt-2 sm:pt-4 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-xs sm:max-w-none mx-auto">
+        <a href="#inscricao" class="btn-main-cta w-full sm:w-auto px-7 sm:px-8 py-3.5 sm:py-4 rounded-xl inline-flex items-center justify-center gap-3 text-sm sm:text-base font-bold">
+          <span>Quero Aprender Agora</span>
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+
+        <a href="#metodo" class="btn-outline-cta w-full sm:w-auto px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl inline-flex items-center justify-center gap-2 text-sm sm:text-base font-semibold">
+          <span>Conhecer o Método</span>
+          <svg class="w-3.5 h-3.5 text-[#EB9C00]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </a>
+      </div>
+
+      <!-- 4 Números em Destaque (#C90101) - 100% Simétricos e Alinhados -->
+      <div class="pt-8 sm:pt-12 grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-6 text-center border-t border-[#7A7D7D]/15 mt-8 sm:mt-10 w-full">
+        <div class="p-3 sm:p-4 rounded-xl bg-white/[0.02] sm:bg-transparent border border-white/5 sm:border-0 flex flex-col justify-center">
+          <span class="text-xl sm:text-3xl font-extrabold text-[#C90101] block">100%</span>
+          <span class="text-[10px] sm:text-xs text-[#7A7D7D] font-mono uppercase tracking-wider mt-1 block">Visual & Sem Decoreba</span>
+        </div>
+        <div class="p-3 sm:p-4 rounded-xl bg-white/[0.02] sm:bg-transparent border border-white/5 sm:border-0 flex flex-col justify-center">
+          <span class="text-xl sm:text-3xl font-extrabold text-[#C90101] block">7 a 70+</span>
+          <span class="text-[10px] sm:text-xs text-[#7A7D7D] font-mono uppercase tracking-wider mt-1 block">Para Todas as Idades</span>
+        </div>
+        <div class="p-3 sm:p-4 rounded-xl bg-white/[0.02] sm:bg-transparent border border-white/5 sm:border-0 flex flex-col justify-center">
+          <span class="text-xl sm:text-3xl font-extrabold text-[#C90101] block">12</span>
+          <span class="text-[10px] sm:text-xs text-[#7A7D7D] font-mono uppercase tracking-wider mt-1 block">Aulas Curtas e Eficientes</span>
+        </div>
+        <div class="p-3 sm:p-4 rounded-xl bg-white/[0.02] sm:bg-transparent border border-white/5 sm:border-0 flex flex-col justify-center">
+          <span class="text-xl sm:text-3xl font-extrabold text-[#C90101] block">Vitalício</span>
+          <span class="text-[10px] sm:text-xs text-[#7A7D7D] font-mono uppercase tracking-wider mt-1 block">Acesso Imediato</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SEÇÃO: POR QUE APRENDER FRAÇÕES COM MINECRAFT (METODOLOGIA ABERTA)
+       ========================================================================== -->
+  <section id="metodo" class="w-full py-16 sm:py-24 border-b border-[#7A7D7D]/15 overflow-hidden">
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 space-y-12 sm:space-y-16">
+      
+      <div class="max-w-3xl space-y-3">
+        <span class="text-xs font-mono uppercase text-[#C90101] tracking-widest block">
+          METODOLOGIA COGNITIVA
+        </span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-[#FFFBFE] tracking-tight">
+          Por que Frações no Minecraft Funcionam 4x Mais Rápido?
+        </h2>
+        <p class="text-sm sm:text-base text-[#7A7D7D] leading-relaxed">
+          O cérebro humano tem dificuldade natural para processar números abstratos flutuando no papel. Ao transformar números em volumes e construções reais, o aprendizado se torna instantâneo.
+        </p>
+      </div>
+
+      <!-- 3 Colunas com Ícones SVG Sem Emojis -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10">
+        
+        <div class="space-y-4 border-l-2 border-[#7A7D7D]/25 pl-5 sm:pl-6 hover:border-[#EB9C00] transition-colors group">
+          <div class="w-12 h-12 rounded-xl bg-[#141314] border border-[#7A7D7D]/30 flex items-center justify-center text-[#C90101] group-hover:text-[#EB9C00] group-hover:border-[#EB9C00] transition-all duration-300 shadow-sm">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-[#FFFBFE]">Visualização Imediata</h3>
+          <p class="text-sm text-[#7A7D7D] leading-relaxed">
+            Veja as frações ganharem vida. Ao dividir pilhas de blocos, o aluno compreende na prática que 2/4 e 1/2 ocupam exatamente o mesmo espaço físico.
+          </p>
+        </div>
+
+        <div class="space-y-4 border-l-2 border-[#7A7D7D]/25 pl-5 sm:pl-6 hover:border-[#EB9C00] transition-colors group">
+          <div class="w-12 h-12 rounded-xl bg-[#141314] border border-[#7A7D7D]/30 flex items-center justify-center text-[#C90101] group-hover:text-[#EB9C00] group-hover:border-[#EB9C00] transition-all duration-300 shadow-sm">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="6" width="20" height="12" rx="6"/>
+              <path d="M6 12h4m-2-2v4m10-2h.01m-3 0h.01"/>
+            </svg>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-[#FFFBFE]">Gamificação e Desafios</h3>
+          <p class="text-sm text-[#7A7D7D] leading-relaxed">
+            Transforme exercícios chatos de matemática em missões empolgantes de exploração, construções simétricas e desafios criativos no jogo.
+          </p>
+        </div>
+
+        <div class="space-y-4 border-l-2 border-[#7A7D7D]/25 pl-5 sm:pl-6 hover:border-[#EB9C00] transition-colors group">
+          <div class="w-12 h-12 rounded-xl bg-[#141314] border border-[#7A7D7D]/30 flex items-center justify-center text-[#C90101] group-hover:text-[#EB9C00] group-hover:border-[#EB9C00] transition-all duration-300 shadow-sm">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-[#FFFBFE]">Acessibilidade Total</h3>
+          <p class="text-sm text-[#7A7D7D] leading-relaxed">
+            Uma linguagem universal. Crianças sem gosto por contas e adultos com traumas de infância finalmente encontram um caminho acolhedor e simples.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SEÇÃO: PARA TODAS AS IDADES (ABERTA E ACOLHEDORA)
+       ========================================================================== -->
+  <section id="todas-as-idades" class="w-full py-16 sm:py-24 border-b border-[#7A7D7D]/15 bg-[#080708] overflow-hidden">
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 space-y-12 sm:space-y-16">
+      
+      <div class="max-w-3xl space-y-3">
+        <span class="text-xs font-mono uppercase text-[#C90101] tracking-widest block">
+          INCLUSÃO E ACOLHIMENTO
+        </span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-[#FFFBFE] tracking-tight">
+          Feito com Carinho para Todas as Etapas da Vida
+        </h2>
+        <p class="text-sm sm:text-base text-[#7A7D7D]">
+          Não existe idade para aprender matemática com prazer. Nossa didática se adapta ao objetivo de cada aluno.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+        
+        <!-- Crianças -->
+        <div class="p-6 sm:p-8 rounded-2xl bg-[#111011] border border-[#7A7D7D]/25 space-y-4 hover:border-[#EB9C00] transition-colors">
+          <div class="w-11 h-11 rounded-xl bg-[#171617] border border-[#7A7D7D]/30 flex items-center justify-center text-[#EB9C00]">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-[#FFFBFE]">Crianças (7 a 12 anos)</h3>
+          <p class="text-sm text-[#7A7D7D] leading-relaxed">
+            Desbloqueie o potencial matemático cedo. A criança aprende no ambiente do seu jogo favorito, ganha autonomia para fazer lições de casa e elimina o medo de errar na escola.
+          </p>
+          <span class="inline-flex items-center gap-1.5 text-xs font-mono text-[#C90101] block pt-2">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Mais confiança nas provas
+          </span>
+        </div>
+
+        <!-- Jovens -->
+        <div class="p-6 sm:p-8 rounded-2xl bg-[#111011] border border-[#7A7D7D]/25 space-y-4 hover:border-[#EB9C00] transition-colors">
+          <div class="w-11 h-11 rounded-xl bg-[#171617] border border-[#7A7D7D]/30 flex items-center justify-center text-[#EB9C00]">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+              <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/>
+            </svg>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-[#FFFBFE]">Jovens & Vestibulandos</h3>
+          <p class="text-sm text-[#7A7D7D] leading-relaxed">
+            Frações são a pedra no sapato no Ensino Médio, travando equações de física e cálculos de química. Destrave esse gargalo e ganhe agilidade de cálculo para o ENEM.
+          </p>
+          <span class="inline-flex items-center gap-1.5 text-xs font-mono text-[#C90101] block pt-2">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Raciocínio rápido no ENEM
+          </span>
+        </div>
+
+        <!-- Adultos -->
+        <div class="p-6 sm:p-8 rounded-2xl bg-[#111011] border border-[#7A7D7D]/25 space-y-4 hover:border-[#EB9C00] transition-colors">
+          <div class="w-11 h-11 rounded-xl bg-[#171617] border border-[#7A7D7D]/30 flex items-center justify-center text-[#EB9C00]">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-[#FFFBFE]">Pais & Adultos</h3>
+          <p class="text-sm text-[#7A7D7D] leading-relaxed">
+            Aprenda para ajudar seus filhos com segurança sem passar vergonha, ou para se preparar para concursos públicos. Um ambiente seguro, maduro e livre de qualquer julgamento.
+          </p>
+          <span class="inline-flex items-center gap-1.5 text-xs font-mono text-[#C90101] block pt-2">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Reaprenda sem constrangimento
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       QUEM ENSINA (TITIO SPINI COM REDES SOCIAIS E AVATAR)
+       ========================================================================== -->
+  <section id="criador" class="w-full py-16 sm:py-24 border-b border-[#7A7D7D]/15 bg-[#0a090a] overflow-hidden">
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6">
+      
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+        
+        <!-- Foto / Perfil do Titio Spini -->
+        <div class="md:col-span-5 flex justify-center">
+          <div class="w-48 sm:w-64 md:w-full max-w-sm aspect-square rounded-2xl overflow-hidden border-2 border-[#C90101]/50 shadow-2xl hover:border-[#EB9C00] transition-all duration-300">
+            <img 
+              src="assets/titio_spini_perfil.jpg" 
+              alt="Titio Spini - Professor e Mentor de Frações no Minecraft"
+              class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-500"
+            >
+          </div>
+        </div>
+
+        <!-- Biografia Aberta e Redes Sociais com Links Oficiais -->
+        <div class="md:col-span-7 space-y-4 sm:space-y-6 text-center md:text-left">
+          <span class="text-xs font-mono uppercase text-[#C90101] tracking-widest block">
+            SEU PROFESSOR E MENTOR
+          </span>
+          <h3 class="text-2xl sm:text-4xl font-extrabold text-[#FFFBFE]">
+            Olá! Eu sou o Titio Spini
+          </h3>
+          <p class="text-sm sm:text-base text-[#7A7D7D] leading-relaxed">
+            Sou completamente apaixonado por educação e pelo Minecraft. Durante anos observei pessoas brilhantes desistirem da matemática simplesmente porque nunca tiveram a oportunidade de <strong>enxergar</strong> o que uma fração representa na prática.
+          </p>
+          <p class="text-sm sm:text-base text-[#7A7D7D] leading-relaxed">
+            Minha missão com este curso é provar que, com a ferramenta visual certa, qualquer pessoa de qualquer idade pode se tornar um mestre em frações. Vamos construir esse conhecimento juntos!
+          </p>
+          
+          <!-- Botões de Redes Sociais: 2 Colunas no Mobile, Linha no Desktop -->
+          <div class="pt-2 grid grid-cols-2 sm:flex sm:flex-wrap gap-2.5 sm:gap-3 justify-center md:justify-start max-w-sm sm:max-w-none mx-auto md:mx-0">
+            
+            <!-- TikTok -->
+            <a href="https://www.tiktok.com/@spinisplend_" target="_blank" rel="noopener noreferrer" class="social-tag-btn justify-center" title="Perfil no TikTok" aria-label="TikTok">
+              <svg class="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24">
+                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+              </svg>
+              <span>TikTok</span>
+            </a>
+
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/spinisplend/" target="_blank" rel="noopener noreferrer" class="social-tag-btn justify-center" title="Perfil no Instagram" aria-label="Instagram">
+              <svg class="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+              <span>Instagram</span>
+            </a>
+
+            <!-- YouTube -->
+            <a href="https://www.youtube.com/@Spinisplend" target="_blank" rel="noopener noreferrer" class="social-tag-btn justify-center" title="Canal no YouTube" aria-label="YouTube">
+              <svg class="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+              <span>YouTube</span>
+            </a>
+
+            <!-- Discord -->
+            <a href="https://discord.gg/x9vqqkZ7N8" target="_blank" rel="noopener noreferrer" class="social-tag-btn justify-center" title="Comunidade no Discord" aria-label="Discord">
+              <svg class="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24">
+                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+              </svg>
+              <span>Discord</span>
+            </a>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SEÇÃO DE PREÇO & MATRÍCULA EM TELA CHEIA (O PREÇO APARECE APENAS AQUI)
+       ========================================================================== -->
+  <section id="inscricao" class="w-full py-16 sm:py-28 relative overflow-hidden bg-black text-center scroll-mt-16 sm:scroll-mt-20">
+    
+    <!-- Luz ambiente de fundo em Golden Orange (#EB9C00) -->
+    <div class="absolute inset-0 bg-radial from-[#EB9C00]/12 via-transparent to-transparent pointer-events-none"></div>
+
+    <div class="w-full max-w-4xl mx-auto px-4 sm:px-6 space-y-6 sm:space-y-8 relative z-10">
+      
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1c1a1b] border border-[#7A7D7D]/30 text-[10px] sm:text-xs font-mono font-bold text-[#FFFBFE] uppercase">
+        <span class="w-2 h-2 rounded-full energy-node animate-ping"></span>
+        <span>ACESSO COMPLETO E VITALÍCIO</span>
+      </div>
+
+      <h2 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#FFFBFE] tracking-tight max-w-2xl mx-auto leading-tight">
+        Pronto para Transformar sua Relação com as Frações?
+      </h2>
+
+      <p class="text-sm sm:text-base text-[#7A7D7D] max-w-xl mx-auto leading-relaxed">
+        Acesso vitalício imediato a 12 aulas curtas, práticas e eficientes com exercícios didáticos e certificado incluso.
+      </p>
+
+      <!-- Preço Promocional Exclusivo desta Seção: De R$ 45,00 por R$ 37,90 -->
+      <div class="py-4 sm:py-6 space-y-2">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C90101]/10 border border-[#C90101]/30 text-[10px] sm:text-xs font-mono font-bold text-[#C90101] uppercase tracking-wider">
+          <span>VALOR PROMOCIONAL LIMITADO</span>
+        </div>
+        
+        <div class="flex items-center justify-center gap-2 text-sm sm:text-base font-mono text-[#7A7D7D] pt-1">
+          <span>De</span>
+          <span class="line-through decoration-[#C90101] decoration-2 text-[#7A7D7D]/80">R$ 45,00</span>
+          <span>por apenas:</span>
+        </div>
+
+        <div class="flex items-baseline justify-center gap-2 pt-1">
+          <span class="text-4xl sm:text-6xl font-extrabold font-mono text-[#C90101] tracking-tight">R$ 37,90</span>
+        </div>
+
+        <span class="text-xs text-[#7A7D7D] font-mono block pt-1">Pagamento Único • Acesso Vitalício Imediato no PIX ou Cartão</span>
+      </div>
+
+      <!-- Checklist em Linha Aberta (Sem Emojis, com SVG Checkmarks) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-md mx-auto text-left text-xs font-mono text-[#FFFBFE]/90 py-2 px-4 sm:px-0">
+        <div class="flex items-center gap-2.5">
+          <svg class="w-4 h-4 text-[#C90101] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>12 Aulas Curtas, Práticas e Eficientes</span>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <svg class="w-4 h-4 text-[#C90101] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Exercícios com Gabarito Visual</span>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <svg class="w-4 h-4 text-[#C90101] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Certificado Oficial de Conclusão</span>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <svg class="w-4 h-4 text-[#C90101] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Acesso Vitalício sem Mensalidades</span>
+        </div>
+      </div>
+
+      <!-- Botão de Ação Principal: #C90101 -> Hover: #EB9C00 (Link Kiwify com Preço Promocional) -->
+      <div class="pt-4 max-w-md mx-auto px-4 sm:px-0">
+        <a href="https://pay.kiwify.com.br/17Nch3s" target="_blank" rel="noopener noreferrer" class="btn-main-cta py-4 px-6 sm:px-8 rounded-xl text-sm sm:text-base font-extrabold uppercase tracking-wider block w-full text-center">
+          Quero Aproveitar a Promoção por R$ 37,90 &rarr;
+        </a>
+        <div class="flex flex-wrap items-center justify-center gap-4 text-xs font-mono text-[#7A7D7D] mt-4">
+          <span class="inline-flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-[#EB9C00]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Pagamento 100% Seguro
+          </span>
+          <span class="hidden sm:inline">•</span>
+          <span class="inline-flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-[#EB9C00]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            Acesso Imediato
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- RODAPÉ CONTÍNUO (FULL-WIDTH) -->
+  <footer class="w-full border-t border-[#7A7D7D]/15 py-8 sm:py-10 text-center text-xs text-[#7A7D7D] space-y-2 bg-[#050505] overflow-hidden">
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6">
+      <p>Curso de Frações do Titio Spini • Onde a Matemática Vira Aventura</p>
+      <p class="text-[11px] opacity-75">
+        Aviso Legal: Iniciativa educacional independente. Minecraft é uma marca registrada da Mojang Studios / Microsoft.
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

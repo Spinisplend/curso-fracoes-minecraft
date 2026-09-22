@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-charcoal: #565254;
+    --color-snow: #FFFBFE;
+    --color-golden: #EB9C00;
+    --color-grey: #7A7D7D;
+    --color-ember: #C90101;
+  }
+
+  body {
+    background-color: #565254;
+    color: #FFFBFE;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Background com Grid Técnico de Arquitetura / Blueprint */
+.bg-tech-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(122, 125, 125, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(122, 125, 125, 0.08) 1px, transparent 1px);
+}
+
+.bg-tech-dots {
+  background-image: radial-gradient(rgba(122, 125, 125, 0.22) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Efeito de Desenho de Linhas e Circuitos */
+@keyframes drawLine {
+  0% {
+    stroke-dashoffset: 400;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-draw-line {
+  stroke-dasharray: 400;
+  animation: drawLine 3.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Pulso Sutil de Node (Ponto de Conexão) */
+@keyframes nodePulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(201, 1, 1, 0.6);
+  }
+  50% {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 8px rgba(201, 1, 1, 0);
+  }
+}
+
+.node-pulse {
+  animation: nodePulse 2.8s infinite ease-in-out;
+}
+
+/* Scrollbar Personalizada com a Paleta */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #3f3c3e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #7A7D7D;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #EB9C00;
+}
